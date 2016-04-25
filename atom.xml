@@ -151,9 +151,9 @@
       <category term="日志" scheme="http://yoursite.com/categories/%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="图片缓存" scheme="http://yoursite.com/tags/%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98/"/>
-    
       <category term="Volley架构" scheme="http://yoursite.com/tags/Volley%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="图片缓存" scheme="http://yoursite.com/tags/%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98/"/>
     
   </entry>
   
@@ -273,11 +273,11 @@
       <category term="日志" scheme="http://yoursite.com/categories/%E6%97%A5%E5%BF%97/"/>
     
     
+      <category term="图片缓存" scheme="http://yoursite.com/tags/%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98/"/>
+    
       <category term="ListView" scheme="http://yoursite.com/tags/ListView/"/>
     
       <category term="notifyDataSetChanged" scheme="http://yoursite.com/tags/notifyDataSetChanged/"/>
-    
-      <category term="图片缓存" scheme="http://yoursite.com/tags/%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98/"/>
     
   </entry>
   
