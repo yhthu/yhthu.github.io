@@ -2,7 +2,7 @@
 tags:
 - Android
 - 视频录制播放
-categories: 日志
+categories: Android开发笔记
 
 ---
 本文分享自己在视频录制播放过程中遇到的一些问题，主要包括：

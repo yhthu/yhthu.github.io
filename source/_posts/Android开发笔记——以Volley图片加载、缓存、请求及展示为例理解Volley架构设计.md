@@ -2,7 +2,7 @@
 tags:
 - Volley架构
 - 图片缓存
-categories: 日志
+categories: Android开发笔记
 
 ---
 Volley是由Google开源的、用于Android平台上的网络通信库。Volley通过优化Android的网络请求流程，形成了以**Request-RequestQueue-Response**为主线的网络访问链，使得Android网络访问变得**简单、高效、扩展性强**。（根据RTFSC原则，强烈建议Android的童鞋学习下Volley的架构设计）下面将以ImageLoader、ImageCache、ImageRequest及NetworkImageView为例，对此进行说明。

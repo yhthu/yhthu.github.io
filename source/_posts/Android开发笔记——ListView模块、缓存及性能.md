@@ -3,7 +3,7 @@ tags:
 - ListView
 - notifyDataSetChanged
 - 图片缓存
-categories: 日志
+categories: Android开发笔记
 
 ---
 
