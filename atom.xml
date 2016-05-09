@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yhthu.com/"/>
-  <updated>2016-05-07T04:15:18.770Z</updated>
+  <updated>2016-05-03T10:28:34.623Z</updated>
   <id>http://yhthu.com/</id>
   
   <author>
@@ -14,45 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Android内存泄露与线程安全</title>
-    <link href="http://yhthu.com/2016/05/07/Android%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
-    <id>http://yhthu.com/2016/05/07/Android开发笔记——内存泄露与线程安全/</id>
-    <published>2016-05-07T04:14:56.451Z</published>
-    <updated>2016-05-07T04:15:18.770Z</updated>
-    
-    <content type="html">&lt;p&gt;本次分享主要结合上周Coverity扫描盘古源码发现的问题和平时的实践，对&lt;strong&gt;内存泄露&lt;/strong&gt;和&lt;strong&gt;线程安全&lt;/strong&gt;这两个问题进行一些说明。扫描发现的BUG大致分为四类：1）空指针；2）除0；3）内存、资源泄露；4）线程安全。第一、二个问题属于编码考虑不周，第三、四个问题则需要更深入的分析。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;内存泄露&lt;/li&gt;
-&lt;li&gt;线程安全&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;一、内存泄露&quot;&gt;&lt;a href=&quot;#一、内存泄露&quot; class=&quot;headerlink&quot; title=&quot;一、内存泄露&quot;&gt;&lt;/a&gt;一、内存泄露&lt;/h2&gt;&lt;p&gt;首先，android中的堆内存分为Native Heap和Dalvik Heap。C/C++申请的内存空间在Native Heap中，而Java申请的内存空间则在Dalvik Heap中。&lt;/p&gt;
-&lt;h3 id=&quot;1、查看内存占用&quot;&gt;&lt;a href=&quot;#1、查看内存占用&quot; class=&quot;headerlink&quot; title=&quot;1、查看内存占用&quot;&gt;&lt;/a&gt;1、查看内存占用&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;命令行：adb shell dumpsys meminfo &lt;strong&gt;packageName&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/img/20160507-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;通过Android Studio的Memory Monitor查看内存中Dalvik Heap的实时变化&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/img/20160507-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本次分享主要结合上周Coverity扫描盘古源码发现的问题和平时的实践，对&lt;strong&gt;内存泄露&lt;/strong&gt;和&lt;strong&gt;线程安全&lt;/strong&gt;这两个问题进行一些说明。扫描发现的BUG大致分为四类：1）空指针；2）除0；3）内存、资源泄露；4）线程安全。第一
-    
-    </summary>
-    
-      <category term="Android内存管理" scheme="http://yhthu.com/categories/Android%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    
-    
-      <category term="Android内存管理" scheme="http://yhthu.com/tags/Android%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    
-      <category term="进程内存" scheme="http://yhthu.com/tags/%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98/"/>
-    
-  </entry>
   
   <entry>
     <title>Android源码笔记——Camera系统架构</title>
