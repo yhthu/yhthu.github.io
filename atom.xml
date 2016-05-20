@@ -17,8 +17,8 @@
   
   <entry>
     <title>Android开发笔记——内存泄露与线程安全</title>
-    <link href="http://yhthu.com/2016/05/16/Android%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
-    <id>http://yhthu.com/2016/05/16/Android开发笔记——内存泄露与线程安全/</id>
+    <link href="http://yhthu.com/2016/05/16/201605161/"/>
+    <id>http://yhthu.com/2016/05/16/201605161/</id>
     <published>2016-05-16T03:01:44.185Z</published>
     <updated>2016-05-16T03:01:50.141Z</updated>
     
@@ -139,8 +139,8 @@
   
   <entry>
     <title>Android源码笔记——Camera系统架构</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E6%BA%90%E7%A0%81%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Camera%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/"/>
-    <id>http://yhthu.com/2016/05/03/Android源码笔记——Camera系统架构/</id>
+    <link href="http://yhthu.com/2016/05/03/201605031/"/>
+    <id>http://yhthu.com/2016/05/03/201605031/</id>
     <published>2016-05-03T10:28:27.523Z</published>
     <updated>2016-05-03T10:28:34.623Z</updated>
     
@@ -227,8 +227,8 @@
   
   <entry>
     <title>Android线程管理（三）——Thread类的内部原理、休眠及唤醒</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94Thread%E7%B1%BB%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E3%80%81%E4%BC%91%E7%9C%A0%E5%8F%8A%E5%94%A4%E9%86%92/"/>
-    <id>http://yhthu.com/2016/05/03/Android线程管理（三）——Thread类的内部原理、休眠及唤醒/</id>
+    <link href="http://yhthu.com/2016/05/03/201605034/"/>
+    <id>http://yhthu.com/2016/05/03/201605034/</id>
     <published>2016-05-03T10:15:54.938Z</published>
     <updated>2016-05-03T10:16:00.537Z</updated>
     
@@ -284,8 +284,8 @@
   
   <entry>
     <title>Android线程管理（二）——ActivityThread</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94ActivityThread/"/>
-    <id>http://yhthu.com/2016/05/03/Android线程管理（二）——ActivityThread/</id>
+    <link href="http://yhthu.com/2016/05/03/201605033/"/>
+    <id>http://yhthu.com/2016/05/03/201605033/</id>
     <published>2016-05-03T10:10:30.030Z</published>
     <updated>2016-05-03T10:10:34.487Z</updated>
     
@@ -366,8 +366,8 @@
   
   <entry>
     <title>Android开发笔记——ListView模块、缓存及性能</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94ListView%E6%A8%A1%E5%9D%97%E3%80%81%E7%BC%93%E5%AD%98%E5%8F%8A%E6%80%A7%E8%83%BD/"/>
-    <id>http://yhthu.com/2016/05/03/Android开发笔记——ListView模块、缓存及性能/</id>
+    <link href="http://yhthu.com/2016/05/03/201605038/"/>
+    <id>http://yhthu.com/2016/05/03/201605038/</id>
     <published>2016-05-03T10:01:08.855Z</published>
     <updated>2016-05-03T10:01:13.228Z</updated>
     
@@ -490,8 +490,8 @@
   
   <entry>
     <title>Android开发笔记——视频录制播放常见问题</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6%E6%92%AD%E6%94%BE%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
-    <id>http://yhthu.com/2016/05/03/Android开发笔记——视频录制播放常见问题/</id>
+    <link href="http://yhthu.com/2016/05/03/201605037/"/>
+    <id>http://yhthu.com/2016/05/03/201605037/</id>
     <published>2016-05-03T10:00:44.773Z</published>
     <updated>2016-05-03T10:00:50.250Z</updated>
     
@@ -552,8 +552,8 @@
   
   <entry>
     <title>Android开发笔记——以Volley图片加载、缓存、请求及展示为例理解Volley架构设计</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E4%BB%A5Volley%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E3%80%81%E7%BC%93%E5%AD%98%E3%80%81%E8%AF%B7%E6%B1%82%E5%8F%8A%E5%B1%95%E7%A4%BA%E4%B8%BA%E4%BE%8B%E7%90%86%E8%A7%A3Volley%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
-    <id>http://yhthu.com/2016/05/03/Android开发笔记——以Volley图片加载、缓存、请求及展示为例理解Volley架构设计/</id>
+    <link href="http://yhthu.com/2016/05/03/201605035/"/>
+    <id>http://yhthu.com/2016/05/03/201605035/</id>
     <published>2016-05-03T10:00:09.815Z</published>
     <updated>2016-05-03T10:00:17.292Z</updated>
     
@@ -632,8 +632,8 @@
   
   <entry>
     <title>Android线程管理（一）——线程通信</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
-    <id>http://yhthu.com/2016/05/03/Android线程管理（一）——线程通信/</id>
+    <link href="http://yhthu.com/2016/05/03/201605032/"/>
+    <id>http://yhthu.com/2016/05/03/201605032/</id>
     <published>2016-05-03T09:57:54.166Z</published>
     <updated>2016-05-03T09:57:59.065Z</updated>
     
@@ -707,8 +707,8 @@
   
   <entry>
     <title>Android开发笔记——图片缓存、手势及OOM分析</title>
-    <link href="http://yhthu.com/2016/05/03/Android%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98%E3%80%81%E6%89%8B%E5%8A%BF%E5%8F%8AOOM%E5%88%86%E6%9E%90/"/>
-    <id>http://yhthu.com/2016/05/03/Android开发笔记——图片缓存、手势及OOM分析/</id>
+    <link href="http://yhthu.com/2016/05/03/201605036/"/>
+    <id>http://yhthu.com/2016/05/03/201605036/</id>
     <published>2016-05-03T09:16:34.821Z</published>
     <updated>2016-05-03T09:16:41.279Z</updated>
     
