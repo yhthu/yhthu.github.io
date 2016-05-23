@@ -138,6 +138,104 @@
   </entry>
   
   <entry>
+    <title>读书笔记-Autonomous Intelligent Vehicles（一）</title>
+    <link href="http://yhthu.com/2016/05/16/201605201/"/>
+    <id>http://yhthu.com/2016/05/16/201605201/</id>
+    <published>2016-05-16T01:19:52.006Z</published>
+    <updated>2016-05-16T01:20:03.076Z</updated>
+    
+    <content type="html">&lt;p&gt;Autonomous intelligent vehicles have to finish the basic procedures:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;perceiving and modeling environment&lt;/li&gt;
+&lt;li&gt;localizing and building maps&lt;/li&gt;
+&lt;li&gt;planning paths and making decisions&lt;/li&gt;
+&lt;li&gt;controlling the vehicles within limit time for real-time purposes. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Meanwhile, we face the challenge of processing large amounts of data from multi-sensors, such as cameras, lidars, radars.&lt;/p&gt;
+&lt;p&gt;Our goal in writing this book is threefold:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;First, it creates an updated reference book of intelligent vehicles. &lt;/li&gt;
+&lt;li&gt;Second, this book not only presents object/obstacle detection and recognition, but also introduces vehicle lateral and longitudinal control algorithms, which benefits the readers keen to learn broadly about intelligent vehicles.&lt;/li&gt;
+&lt;li&gt;Finally, we put emphasis on high-level concepts, and at the same time provide the low-level details of implementation.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We try to link theory, algorithms, and implementation to promote intelligent vehicle research. &lt;/p&gt;
+&lt;p&gt;This book is divided into four parts. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The first part &lt;strong&gt;Autonomous Intelligent Vehicles&lt;/strong&gt; presents the research motivation and purposes, the state-of-art of intelligent vehicles research. Also, we introduce the framework of intelligent vehicles. &lt;/li&gt;
+&lt;li&gt;The second part &lt;strong&gt;Environment Perception and Modeling&lt;/strong&gt; which includes Road detection and tracking, Vehicle detection and tracking, Multiple-sensor based multiple-object tracking introduces environment perception and modeling. &lt;/li&gt;
+&lt;li&gt;The third part &lt;strong&gt;Vehicle Localization and Navigation&lt;/strong&gt; which includes An integrated DGPS/IMU positioning approach, Vehicle navigation using global views presents vehicle navigation based on integrated GPS and INS. &lt;/li&gt;
+&lt;li&gt;The fourth part &lt;strong&gt;Advanced Vehicle Motion Control&lt;/strong&gt; introduces vehicle lateral and longitudinal motion control.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;The Key Technologies of Intelligent Vehicles:&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;/img/20160514-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Multi-sensor Fusion Based Environment Perception and Modeling&lt;/li&gt;
+&lt;li&gt;Vehicle Localization and Map Building&lt;/li&gt;
+&lt;li&gt;Path Planning and Decision-Making&lt;/li&gt;
+&lt;li&gt;Low-Level Motion Control&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于环境认知与建模的多维传感器数据融合&lt;br&gt;&lt;img src=&quot;/img/20160514-2.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;Figure 1.2 illustrates a general environment perception and modeling framework. From this framework, we can see that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(i) The original data are collected by various sensors; &lt;/li&gt;
+&lt;li&gt;(ii) Various features are extracted from the original data, such as road (object) colors, lane edges, building contours; &lt;/li&gt;
+&lt;li&gt;(iii) Semantic objects are recognized using classifiers, and consist of lanes, signs, vehicles, pedestrians; &lt;/li&gt;
+&lt;li&gt;(iv) We can deduce driving contexts, and vehicle positions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Multi-sensor fusion&lt;br&gt;Multi-sensor fusion is the basic framework of intelligent vehicles for better sensing surrounding environment structures, and detecting objects/obstacles. Roughly, the sensors used for surrounding environment perception are divided into two categories: &lt;strong&gt;active and passive ones. Active sensors include lidar, radar, ultrasonic and radio, while the commonly-used passive sensors are infrared and visual cameras.&lt;/strong&gt; Different sensors are capable of providing different detection precision and range, and yielding different effects on environment. That is, combining various sensors could cover not only short-range but also long-range objects/obstacles, and also work in various weather conditions. Furthermore, the original data of different sensors can be fused in low-level fusion, high-level fusion, and hybrid fusion.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Dynamic Environment Modeling&lt;br&gt;Dynamic environment modeling based on moving on-vehicle cameras plays an important role in intelligent vehicles [17]. However, this is extremely challenging due to the combined effects of &lt;strong&gt;ego-motion, blur, light changing&lt;/strong&gt;. Therefore, traditional methods for gradual illumination change, small motion objects, such as background subtraction, do not work well any more, even those that have been widely used in surveillance applications. Consequently, more and more approaches try to handle these issues [2, 17]. Unfortunately, it is still an open problem to reliably model and update background. To select different driving strategies, several broad scenarios are usually considered in path planning and decision-making, when navigating roads, intersections, parking lots, jammed intersections. Hence, scenario estimators are helpful for further decision-making, which is commonly used in the Urban Challenge.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Object Detection and Tracking&lt;br&gt;In general, in a driving environment, we are interested in static/dynamic obstacles, lane markings, traffic signs, vehicles, and pedestrians. Correspondingly, object detection and tracking are the key parts of environment perception and modeling.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过多维传感器数据融合，有效实现对短距离、长距离的物体/障碍物的识别、跟踪，从而达到对环境的建模。可以看出，计算机视觉仍然是动态环境建模的挑战。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;高精度定位和地图的构建&lt;/p&gt;
+&lt;p&gt;The goal of vehicle localization and map building is to &lt;strong&gt;generate a global map&lt;/strong&gt; by &lt;strong&gt;combining the environment model, a local map and global information&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;For vehicle localization, we face several challenges as follows: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(i) Usually, the absolute positions from GPS/DGPS and its variants are insufficient due to signal transmission; &lt;/li&gt;
+&lt;li&gt;(ii) The path planning and decision-making module needs more than just the vehicle absolute position as input; &lt;/li&gt;
+&lt;li&gt;(iii) Sensor noises greatly affect the accuracy of vehicle localization.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160514-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Regarding the first issue, though the GPS and its variants have been widely used in vehicle localization, its performance could degrade due to signal blockages and reflections of buildings and trees. In the worst case, Inertia Navigation System (INS) can maintain a position solution.&lt;/p&gt;
+&lt;p&gt;As for the second issue, local maps fusing laser, radar, and vision data with vehicle states are used to locate and track both static/dynamic obstacles and lanes. Furthermore, global maps could contain lane geometric information, lane makings, step signs, parking lots, check points and provide global environment information. &lt;/p&gt;
+&lt;p&gt;Referring to the third issue, various noise modules are considered to reduce localization error.&lt;/p&gt;
+&lt;p&gt;SLAM是目前研究的比较多的机器人定位和地图构建的算法。下面是结合ROS和SLAM的一些展示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160514-4.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/20160514-5.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/20160514-6.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/20160514-7.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/20160514-8.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;路径规划和决策制定&lt;/p&gt;
+&lt;p&gt;Global path planning is to find the fastest and safest way to get from the initial position to the goal position, while local path planning is to avoid obstacles for safe navigation. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Road following, making lane-changes, parking, obstacle avoidance, recovering from abnormal conditions.&lt;/strong&gt; In many cases, decision-making depends of context driving, especially in driver assistance systems.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160514-9.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;目前在高德、百度中用到路径规划算法是否可以通用呢？&lt;/p&gt;
+&lt;p&gt;低层运动控制&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160514-10.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Its typical applications consist of automatic vehicle following/platoon, Adaptive Cruise Control (ACC), lane following. Vehicle control can be broadly divided into two categories: &lt;strong&gt;lateral control and longitudinal control&lt;/strong&gt;(Fig. 1.4). The longitudinal control is related to d&lt;strong&gt;istance–velocity control&lt;/strong&gt; between vehicles for safety and comfort purposes. Here some assumptions are made about the state of vehicles and the parameters of models, such as in the PATH project. The lateral control isto &lt;strong&gt;maintain the vehicle’s position in the lane center&lt;/strong&gt;, and it can be used for vehicle guidance assistance. Moreover, it is well known that the lateral and longitudinal dynamics of a vehicle are coupled in a combined lateral and longitudinal control, where the coupling degree is a function of the tire and vehicle parameters. In general, there are two different approaches to design vehicle controllers. One way to do this is to mimic driver operations, and the other is based on vehicle dynamic models and control strategies.&lt;/p&gt;
+&lt;p&gt;从目前业界动态来看，国内做自动驾驶、无人驾驶创业的厂商大多从ADAS切入，有市场的原因，比如目前普通车主能接受的汽车更加安全、智能，但还没到自动驾驶的程度；有技术的原因，移动设备的数据处理能力以及算法的实时性依然有待提升。如上所述，类似ADAS的运动控制可以分为横向和纵向的控制，横向运动控制主要是使车辆保持在道路中间，如车道保持系统；纵向运动控制基于距离和速度，是行驶安全性、舒适性的关键，自适应巡航、防碰撞预警系统等控制都属于纵向运动控制。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Autonomous intelligent vehicles have to finish the basic procedures:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;perceiving and modeling environment&lt;/li&gt;
+&lt;li&gt;localizing
+    
+    </summary>
+    
+      <category term="读书笔记" scheme="http://yhthu.com/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Theory, Algorithms, Implementation" scheme="http://yhthu.com/tags/Theory-Algorithms-Implementation/"/>
+    
+      <category term="Perceiving and modeling environment" scheme="http://yhthu.com/tags/Perceiving-and-modeling-environment/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android源码笔记——Camera系统架构</title>
     <link href="http://yhthu.com/2016/05/03/201605031/"/>
     <id>http://yhthu.com/2016/05/03/201605031/</id>
