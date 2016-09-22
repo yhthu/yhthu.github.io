@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Android App的架构设计：从VM、MVC、MVP到MVVM | 杨浩的个人博客【yhthu.com】</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Android App的架构设计：从VM、MVC、MVP到MVVM</h1><a id="logo" href="/.">杨浩的个人博客【yhthu.com】</a><p class="description">分享交流Android、CV、ML、NN等方面的技术和设计思想</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于yhthu</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Android App的架构设计：从VM、MVC、MVP到MVVM</h1><div class="post-meta">Sep 22, 2016<span> | </span><span class="category"><a href="/categories/Android开发笔记/">Android开发笔记</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2016/09/22/201609221/" href="/2016/09/22/201609221/#comments" class="ds-thread-count"></a><div class="post-content"><p>随着Android应用开发规模的扩大，客户端业务逻辑也越来越复杂，已然不是简单的数据展示了。如同后端开发遇到瓶颈时采用的组件拆分思想，客户端也需要进行架构设计，拆分视图和数据，解除模块之间的耦合，提高模块内部的聚合度。</p>
+<p>开始之前先上一张内部分享时用的PPT图：<br><img src="/img/20160922-1.png" alt=""></p>
+<p>以上是笔者在客户端开发过程中面临的问题，涉及到以下四个主题：</p>
+<ol>
+<li>Android App的架构设计：从VM、MVC、MVP到MVVM</li>
+<li>Android App的网络访问：支持REST、HTTPS及SPDY的Retrofit+Okhttp</li>
+<li>Android App的响应式编程：RxJava/RxAndroid解决方案</li>
+<li>Android App的依赖注入：Dagger2和ButterKnife使用</li>
+</ol>
+<p>本文将从架构设计入手，分享笔者在Android开发中采用MVC、MVP及MVVM的一些想法。</p>
+<h2 id="一、Android原生开发中的MVC"><a href="#一、Android原生开发中的MVC" class="headerlink" title="一、Android原生开发中的MVC"></a>一、Android原生开发中的MVC</h2><p>Android原生开发采用XML文件实现页面布局，通过Java在Activity中开发业务逻辑，这种开发模式实际上已经采用了MVC的思想，分离视图和控制器。MVC模式（Model–view–controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。</p>
+<blockquote>
+<p>MVC模式最早由Trygve Reenskaug在1978年提出，是施乐帕罗奥多研究中心（Xerox<br>PARC）在20世纪80年代为程序语言Smalltalk发明的一种软件架构。MVC模式的目的是实现一种动态的程序设计，使后续对程序的修改和扩展简化，并且使程序某一部分的重复利用成为可能。除此之外，此模式通过对复杂度的简化，使程序结构更加直观。软件系统通过对自身基本部分分离的同时也赋予了各个基本部分应有的功能。专业人员可以通过自身的专长分组：</p>
+<ul>
+<li>控制器（Controller）- 负责转发请求，对请求进行处理。</li>
+<li>视图（View） - 界面设计人员进行图形界面设计。</li>
+<li>模型（Model） - 程序员编写程序应有的功能（实现算法等等）、数据库专家进行数据管理和数据库设计(可以实现具体的功能)。</li>
+</ul>
+<p>——以上内容来自《维基百科》</p>
+</blockquote>
+<p>在Android编程中，View对应xml布局文件，Model对应实体模型（网络、数据库、I/O），Controller对应Activity业务逻辑，数据处理和UI处理。如下图所示。</p>
+<p><img src="/img/20160922-2.png" alt="图片来自互联网"></p>
+<p>但在实际开发过程中，纯粹作为View的各个XML文件功能较弱，Activity基本上都是View和Controller的合体，既要负责视图的显示又要加入控制逻辑，承担的功能很多，导致代码量很大。所有更贴切的目前常规的开发说应该是View-Model模式，大部分都是通过Activity的协调，连接处理逻辑的。</p>
+<h2 id="二、从MVC过渡到MVP"><a href="#二、从MVC过渡到MVP" class="headerlink" title="二、从MVC过渡到MVP"></a>二、从MVC过渡到MVP</h2><p>在业务逻辑稍微复杂一点的页面，Activity的代码超过一千是很容易的，如果作者又刚好读过<a href="http://coolshell.cn/articles/4758.html" target="_blank" rel="external">《如何写出无法维护的代码》</a>，那么恭喜后来接手该代码的童鞋，接下来的几个月会很酸爽的。。。</p>
+<p>既然Activity存在代码量过大的问题，那自然会想到进行拆分。上节说到Android原生开发采用了MVC的思想，但Activity并不是一个标准的MVC模式中的Controller，它的首要职责是加载应用的布局和初始化用户界面，并接受并处理来自用户的操作请求，进而作出响应。随着界面及其逻辑的复杂度不断提升，Activity类的职责不断增加，以致变得庞大臃肿。</p>
+<p>MVP是从MVC过渡而来，MVP框架由三部分组成：View负责显示，Presenter负责逻辑处理，Model提供数据。Android开发从MVC过渡到MVP，最主要的变化就是将Activity中负责业务逻辑的代码移到Presenter中，Activity只充当MVP中的View，负责界面初始化以及建立界面控件与Presenter的关联。</p>
+<p>这样拆分之后，Presenter承担了大量的逻辑操作，避免了Activity的臃肿。整个架构如下图所示。</p>
+<p><img src="/img/20160922-3.jpg" alt="图片来自互联网"></p>
+<ul>
+<li>View(Activity)负责响应用户操作，通过Presenter暴露的方法请求数据；</li>
+<li>Presenter在获取数据后，通过View(Activity)暴露的方法实现界面控制（showLoading/showUsers）；</li>
+<li>Presenter的数据是通过Model来获取的，Model包含网络、数据库以及I/O等；</li>
+<li>Model通过回调的方式将数据传到Presenter中。</li>
+</ul>
+<p>采用MVP明显的优点是避免了传统开发模式中View和Model耦合的情况，提高了代码可扩展性、组件复用能力、团队协作的效率以及单元测试的便利性。但也有一些缺点，比如：</p>
+<ul>
+<li>Model到Presenter的数据传递过程需要通过回调；</li>
+<li>View(Activity)需要持有Presenter的引用，同时，Presenter也需要持有View(Activity)的引用，增加了控制的复杂度；</li>
+<li>MVC中Activity的代码很臃肿，转移到MVP的Presenter中，同样造成了Presenter在业务逻辑复杂时的代码臃肿。</li>
+</ul>
+<h2 id="三、从Presenter到ViewModel"><a href="#三、从Presenter到ViewModel" class="headerlink" title="三、从Presenter到ViewModel"></a>三、从Presenter到ViewModel</h2><p>MVVM是Model-View-ViewModel的简称，从实际效果来看，ViewModel是View的数据模型和Presenter的结合，具体结构如下图所示：</p>
+<p><img src="/img/20160922-4.jpg" alt="图片来自互联网"></p>
+<ul>
+<li>View（视图层）采用XML文件进行界面的描述；</li>
+<li>Model（模型层）通过网络和本地数据库获取视图层所需数据；</li>
+<li>ViewModel（视图-模型层）负责View和Model之间的通信，以此分离视图和数据。</li>
+</ul>
+<p>View和Model之间通过Android Data Binding技术，实现视图和数据的双向绑定；ViewModel持有Model的引用，通过Model的方法请求数据；获取数据后，通过Callback（回调）的方式回到ViewModel中，由于ViewModel与View的双向绑定，使得界面得以实时更新。同时，界面输入的数据变化时，由于双向绑定技术，ViewModel中的数据得以实时更新，提高了数据采集的效率。</p>
+<p>采用ViewModel解决MVP中View(Activity)和Presenter相互持有对方应用的问题，界面由数据进行驱动，响应界面操作无需由View(Activity)传递，数据的变化也无需Presenter调用View(Activity)实现，使得数据传递的过程更加简洁，高效。</p>
+<p>在Android中实现MVVM架构的核心支撑技术是Google去年I/O大会开源的Data binding技术，这项技术的思想并不新颖，最初由微软提出，在前端开发中已经有成熟的应用。下面对其进行简要的介绍。</p>
+<h2 id="四、Android中的Data-Binding"><a href="#四、Android中的Data-Binding" class="headerlink" title="四、Android中的Data Binding"></a>四、Android中的Data Binding</h2><p>学习Data Binding主要推荐两个内容：</p>
+<ol>
+<li><a href="https://developer.android.com/topic/libraries/data-binding/index.html" target="_blank" rel="external">官方的Data Binding教程</a></li>
+<li><a href="https://github.com/LyndonChin/MasteringAndroidDataBinding" target="_blank" rel="external">精通 Android Data Binding</a></li>
+</ol>
+<p>这两篇文章中已经将Data Binding的基本内容描述的很详细了。这里仅列两个在实践中遇到的坑，抛砖引玉。</p>
+<ul>
+<li>ObservableField的get方法可能无法返回界面实时更新的内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public ObservableField&lt;String&gt; username = new ObservableField&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>上述username表示用户名，在界面上可能会与EditText绑定。通过username的set方法可以设置EditText显示，但如果输入变更后，通过get方法却不一定能及时返回界面的数据。</p>
+<ul>
+<li>Data Binding依然有很多支持的不好的组件（listview，recyclerView等），不可能通过给所有组件绑定ViewModel从而实现Activity没有业务逻辑操作。另外，ViewModel获取数据之后，也不可能把所有数据直接绑定到界面，有些也需要通过回调传到Activity中。</li>
+</ul>
+<p>从MVC、MVP到MVVM，实际上是模型和视图的分离过程。MVC中模型和视图没有完全分离，造成Activity代码臃肿，MVP中通过Presenter来进行中转，模型和视图彻底分离，但由于V和P互相引用，代码不够优雅。ViewModel通过Data Binding实现了视图和数据的绑定，解决了这种MVP的缺陷，但目前也存在Data Binding还不成熟的问题。</p>
+<p>其实，MVC、MVP及MVVM没有绝对好坏，在软件编程过程中，也没必要非此即彼，最重要的是让软件高内聚、低耦合、可维护、可扩展，至于架构，根据实际情况选择吧。</p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yhthu.com/2016/09/22/201609221/" data-id="cite6f9uv000hcwrsbfmvlpjz" class="article-share-link">分享到</a><div class="tags"><a href="/tags/Android架构/">Android架构</a><a href="/tags/MVVM/">MVVM</a><a href="/tags/MVC/">MVC</a></div><div class="post-nav"><a href="/2016/05/16/201605161/" class="next">Android开发笔记——内存泄露与线程安全</a></div><div data-thread-key="2016/09/22/201609221/" data-title="Android App的架构设计：从VM、MVC、MVP到MVVM" data-url="http://yhthu.com/2016/09/22/201609221/" class="ds-share flat"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0);" class="ds-more">分享到：</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul><div class="ds-share-icons-more"></div></div></div><div data-thread-key="2016/09/22/201609221/" data-title="Android App的架构设计：从VM、MVC、MVP到MVVM" data-url="http://yhthu.com/2016/09/22/201609221/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yhthu.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android内存管理/">Android内存管理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android开发笔记/">Android开发笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码笔记/">Android源码笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android线程管理/">Android线程管理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Android架构/" style="font-size: 15px;">Android架构</a> <a href="/tags/Android-Camera/" style="font-size: 15px;">Android Camera</a> <a href="/tags/Volley架构/" style="font-size: 15px;">Volley架构</a> <a href="/tags/图片缓存/" style="font-size: 15px;">图片缓存</a> <a href="/tags/Android/" style="font-size: 15px;">Android</a> <a href="/tags/OOM分析/" style="font-size: 15px;">OOM分析</a> <a href="/tags/ListView/" style="font-size: 15px;">ListView</a> <a href="/tags/notifyDataSetChanged/" style="font-size: 15px;">notifyDataSetChanged</a> <a href="/tags/Android线程/" style="font-size: 15px;">Android线程</a> <a href="/tags/MVVM/" style="font-size: 15px;">MVVM</a> <a href="/tags/MVC/" style="font-size: 15px;">MVC</a> <a href="/tags/Android内存管理/" style="font-size: 15px;">Android内存管理</a> <a href="/tags/进程内存/" style="font-size: 15px;">进程内存</a> <a href="/tags/视频录制播放/" style="font-size: 15px;">视频录制播放</a> <a href="/tags/Theory-Algorithms-Implementation/" style="font-size: 15px;">Theory, Algorithms, Implementation</a> <a href="/tags/Perceiving-and-modeling-environment/" style="font-size: 15px;">Perceiving and modeling environment</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/09/22/201609221/">Android App的架构设计：从VM、MVC、MVP到MVVM</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/201605161/">Android开发笔记——内存泄露与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/201605201/">读书笔记-Autonomous Intelligent Vehicles（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605031/">Android源码笔记——Camera系统架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605034/">Android线程管理（三）——Thread类的内部原理、休眠及唤醒</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605033/">Android线程管理（二）——ActivityThread</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605038/">Android开发笔记——ListView模块、缓存及性能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605037/">Android开发笔记——视频录制播放常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605035/">Android开发笔记——以Volley图片加载、缓存、请求及展示为例理解Volley架构设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/03/201605032/">Android线程管理（一）——线程通信</a></li></ul></div><div class="widget"><div class="comments-title"><i class="fa fa-comment-o"> 最近评论</i></div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://androidweekly.cn/" title="Android开发技术周报" target="_blank">Android开发技术周报</a><ul></ul><a href="http://p.codekk.com/" title="codeKK开源项目源码解析" target="_blank">codeKK开源项目源码解析</a><ul></ul><a href="http://www.trinea.cn/" title="Trinea技术博客" target="_blank">Trinea技术博客</a><ul></ul><a href="http://hukai.me/" title="胡凯技术博客" target="_blank">胡凯技术博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">杨浩的个人博客【yhthu.com】.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script>var duoshuoQuery = {short_name:'yhthu'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
